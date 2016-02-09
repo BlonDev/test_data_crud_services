@@ -17,14 +17,15 @@ class RootREST:
 
         # # Root service.
         @self.app.route('/', methods=['GET'])
-        def say_hello_service():
+        def json_schema_service():
             return json.dumps(schema, sort_keys=True, indent=4, default=json_util.default),\
                    200,\
                    {'Content-Type': 'application/schema+json; charset=utf-8'}
 
         # Run Flask.
         if self.run_flask:                              # pragma: no cover
-            self.app.run(host=self.host, debug=True)    # pragma: no cover
+            # self.app.run(host=self.host, debug=True)    # pragma: no cover
+            self.app.run(debug=True)    # pragma: no cover
 
 
 def run_engine(host):                                   # pragma: no cover
