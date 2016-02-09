@@ -31,4 +31,4 @@ def run_engine(host):                                   # pragma: no cover
     RootREST(host, True)                                # pragma: no cover
 
 if __name__ == '__main__':                              # pragma: no cover
-    run_engine('localhost')                             # pragma: no cover
+    run_engine('0.0.0.0')                               # pragma: no cover
