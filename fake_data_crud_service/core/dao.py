@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 
 class DAO:
@@ -20,6 +21,11 @@ class DAO:
         for item in items:
             out.append(item)
         return out
+
+    def get_by_id(self, collection_name, id):
+        db = self.client[self.db]
+        collection = db[collection_name]
+        return collection.find_one({'_id': ObjectId(id)})
 
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db

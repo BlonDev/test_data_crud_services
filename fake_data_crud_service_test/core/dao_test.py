@@ -18,3 +18,13 @@ class FakeDataCRUDServiceTest(unittest.TestCase):
         self.assertEqual(items[0]['genre'], 'non-fiction')
         self.assertEqual(items[0]['title'], 'Mr. Nice')
         self.assertEqual(items[0]['pages'], 466)
+
+    def test_get_by_id(self):
+        dao = DAO('kalimaha', 'Ce09114238', 'ds059145.mongolab.com', '59145', 'kalimadata')
+        item = dao.get_by_id('books', '56b78893e4b05ba6b4983386')
+        self.assertIsNotNone(item)
+        self.assertEqual(item['ISBN'], '0-436-20305-7')
+        self.assertEqual(item['author'], 'Howard Marks')
+        self.assertEqual(item['genre'], 'non-fiction')
+        self.assertEqual(item['title'], 'Mr. Nice')
+        self.assertEqual(item['pages'], 466)
