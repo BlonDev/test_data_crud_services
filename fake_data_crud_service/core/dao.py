@@ -13,10 +13,13 @@ class DAO:
         self.client = MongoClient(self.uri)
 
     def get(self, collection_name):
+        out = []
         db = self.client[self.db]
         collection = db[collection_name]
-        books = collection.find()
-        print books
+        items = collection.find()
+        for item in items:
+            out.append(item)
+        return out
 
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db
