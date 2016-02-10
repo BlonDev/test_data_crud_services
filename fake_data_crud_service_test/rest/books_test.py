@@ -16,8 +16,13 @@ class BooksTest(unittest.TestCase):
         self.assertEquals(response.status_code, 200)
         data = json.loads(response.data)
         self.assertEquals(len(data), 1)
-        self.assertEquals(data[0]['ISBN'], '0-436-20305-7')
-        self.assertEquals(data[0]['author'], 'Howard Marks')
-        self.assertEquals(data[0]['genre'], 'non-fiction')
-        self.assertEquals(data[0]['pages'], 466)
-        self.assertEquals(data[0]['title'], 'Mr. Nice')
+
+    def test_get_by_id(self):
+        response = self.tester.get('/books/56b78893e4b05ba6b4983386/', content_type='application/json')
+        self.assertEquals(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEquals(data['ISBN'], '0-436-20305-7')
+        self.assertEquals(data['author'], 'Howard Marks')
+        self.assertEquals(data['genre'], 'non-fiction')
+        self.assertEquals(data['pages'], 466)
+        self.assertEquals(data['title'], 'Mr. Nice')
