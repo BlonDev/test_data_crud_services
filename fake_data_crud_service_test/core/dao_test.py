@@ -53,3 +53,10 @@ class FakeDataCRUDServiceTest(unittest.TestCase):
         self.assertEqual(item['genre'], 'non-fiction')
         self.assertEqual(item['title'], 'Mr. Nice')
         self.assertEqual(item['pages'], 466)
+
+    def test_delete(self):
+        dao = get_dao('test')
+        inserted_id = dao.create('books', test_book)
+        ack = dao.delete('books', inserted_id)
+        self.assertEqual(1, ack['ok'])
+        self.assertEqual(1, ack['n'])

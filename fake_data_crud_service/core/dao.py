@@ -24,15 +24,20 @@ class DAO:
             out.append(item)
         return out
 
-    def get_by_id(self, collection_name, id):
+    def get_by_id(self, collection_name, item_id):
         db = self.client[self.db]
         collection = db[collection_name]
-        return collection.find_one({'_id': ObjectId(id)})
+        return collection.find_one({'_id': ObjectId(item_id)})
 
     def create(self, collection_name, item):
         db = self.client[self.db]
         collection = db[collection_name]
         return collection.insert_one(item).inserted_id
+
+    def delete(self, collection_name, item_id):
+        db = self.client[self.db]
+        collection = db[collection_name]
+        return collection.remove({'_id': item_id})
 
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db
