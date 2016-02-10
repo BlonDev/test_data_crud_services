@@ -37,7 +37,7 @@ class DAO:
     def delete(self, collection_name, item_id):
         db = self.client[self.db]
         collection = db[collection_name]
-        return collection.remove({'_id': item_id})
+        return collection.remove({'_id': ObjectId(item_id)})
 
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db

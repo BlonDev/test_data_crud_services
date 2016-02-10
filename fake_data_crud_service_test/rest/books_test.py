@@ -38,3 +38,13 @@ class BooksTest(unittest.TestCase):
         self.assertEquals(data['genre'], 'non-fiction')
         self.assertEquals(data['pages'], 466)
         self.assertEquals(data['title'], 'Mr. Nice')
+
+    def test_delete(self):
+        dao = get_dao('test')
+        inserted_id = dao.create('books', test_book)
+        response = self.tester.delete('/books/test/' + str(inserted_id) + '/',
+                                      content_type='application/json')
+        self.assertEquals(response.status_code, 200)
+        ack = json.loads(response.data)
+        self.assertEqual(1, ack['ok'])
+        self.assertEqual(1, ack['n'])
