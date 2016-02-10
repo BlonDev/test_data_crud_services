@@ -5,7 +5,8 @@ from fake_data_crud_service.core.dao import DAO
 from fake_data_crud_service.core.dao import get_dao
 from fake_data_crud_service.rest.books import books
 from fake_data_crud_service.config.settings import test as t
-from fake_data_crud_service.resources.test_book import book as test_book
+from fake_data_crud_service.resources.test_book import book_1 as test_book
+from fake_data_crud_service.resources.test_book import book_2 as update_book
 
 
 class BooksTest(unittest.TestCase):
@@ -44,6 +45,17 @@ class BooksTest(unittest.TestCase):
         inserted_id = dao.create('books', test_book)
         response = self.tester.delete('/books/test/' + str(inserted_id) + '/',
                                       content_type='application/json')
+        self.assertEquals(response.status_code, 200)
+        ack = json.loads(response.data)
+        self.assertEqual(1, ack['ok'])
+        self.assertEqual(1, ack['n'])
+
+    def test_update(self):
+        dao = get_dao('test')
+        inserted_id = dao.create('books', test_book)
+        response = self.tester.put('/books/test/' + str(inserted_id) + '/',
+                                   data=json.dumps(update_book),
+                                   content_type='application/json')
         self.assertEquals(response.status_code, 200)
         ack = json.loads(response.data)
         self.assertEqual(1, ack['ok'])

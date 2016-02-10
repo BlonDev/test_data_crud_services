@@ -3,7 +3,8 @@ from fake_data_crud_service.core.dao import DAO
 from fake_data_crud_service.core.dao import get_dao
 from fake_data_crud_service.config.settings import test as t
 from fake_data_crud_service.config.settings import production as p
-from fake_data_crud_service.resources.test_book import book as test_book
+from fake_data_crud_service.resources.test_book import book_1 as test_book
+from fake_data_crud_service.resources.test_book import book_2 as update_book
 
 
 class FakeDataCRUDServiceTest(unittest.TestCase):
@@ -60,3 +61,25 @@ class FakeDataCRUDServiceTest(unittest.TestCase):
         ack = dao.delete('books', inserted_id)
         self.assertEqual(1, ack['ok'])
         self.assertEqual(1, ack['n'])
+
+    def test_update(self):
+        dao = get_dao('test')
+        inserted_id = dao.create('books', test_book)
+        item = dao.get_by_id('books', inserted_id)
+        self.assertIsNotNone(item)
+        self.assertEqual(item['ISBN'], '0436203057')
+        self.assertEqual(len(item['authors']), 1)
+        self.assertEqual(item['authors'][0], 'Howard Marks')
+        self.assertEqual(item['genre'], 'non-fiction')
+        self.assertEqual(item['title'], 'Mr. Nice')
+        self.assertEqual(item['pages'], 466)
+        dao.update('books', inserted_id, update_book)
+        item = dao.get_by_id('books', inserted_id)
+        print item
+        self.assertIsNotNone(item)
+        self.assertEqual(item['ISBN'], '0439708184')
+        self.assertEqual(len(item['authors']), 1)
+        self.assertEqual(item['authors'][0], 'J. K. Rowling')
+        self.assertEqual(item['genre'], 'fiction')
+        self.assertEqual(item['title'], 'Harry Potter and the Sorcerer\'s Stone')
+        self.assertEqual(item['pages'], 322)

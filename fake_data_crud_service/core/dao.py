@@ -39,6 +39,11 @@ class DAO:
         collection = db[collection_name]
         return collection.remove({'_id': ObjectId(item_id)})
 
+    def update(self, collection_name, item_id, item):
+        db = self.client[self.db]
+        collection = db[collection_name]
+        return collection.update({'_id': ObjectId(item_id)}, item, upsert=False)
+
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db
 
