@@ -29,8 +29,17 @@ class DAO:
         collection = db[collection_name]
         return collection.find_one({'_id': ObjectId(id)})
 
+    def create(self, collection_name, item):
+        db = self.client[self.db]
+        collection = db[collection_name]
+        return collection.insert_one(item).inserted_id
+
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db
+
+    def drop_collection(self, collection_name):
+        db = self.client[self.db]
+        db.drop_collection(collection_name)
 
 
 def get_dao(environment):
