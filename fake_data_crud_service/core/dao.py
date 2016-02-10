@@ -1,5 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from fake_data_crud_service.config.settings import production as p
+from fake_data_crud_service.config.settings import test as t
 
 
 class DAO:
@@ -29,3 +31,10 @@ class DAO:
 
     def create_connection_uri(self):
         return 'mongodb://' + self.username + ':' + self.password + '@' + self.host + ':' + self.port + '/' + self.db
+
+
+def get_dao(environment):
+    if 'production' in environment:
+        return DAO(p['username'], p['password'], p['host'], p['port'], p['db_name'])
+    elif 'test' in environment:
+        return DAO(t['username'], t['password'], t['host'], t['port'], t['db_name'])

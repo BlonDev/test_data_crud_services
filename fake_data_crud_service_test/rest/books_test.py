@@ -12,13 +12,13 @@ class BooksTest(unittest.TestCase):
         self.tester = self.app.test_client(self)
 
     def test_get(self):
-        response = self.tester.get('/books/', content_type='application/json')
+        response = self.tester.get('/books/test/', content_type='application/json')
         self.assertEquals(response.status_code, 200)
         data = json.loads(response.data)
         self.assertEquals(len(data), 1)
 
     def test_get_by_id(self):
-        response = self.tester.get('/books/56b78893e4b05ba6b4983386/', content_type='application/json')
+        response = self.tester.get('/books/test/56b78893e4b05ba6b4983386/', content_type='application/json')
         self.assertEquals(response.status_code, 200)
         data = json.loads(response.data)
         self.assertEquals(data['ISBN'], '0-436-20305-7')
