@@ -45,7 +45,7 @@ class FakeDataCRUDServiceTest(unittest.TestCase):
 
     def test_get_by_id(self):
         dao = get_dao('test')
-        inserted_id = dao.create('books', test_book)['_id']
+        inserted_id = dao.create('books', test_book)
         item = dao.get_by_id('books', inserted_id)
         self.assertIsNotNone(item)
         self.assertEqual(item['ISBN'], '0436203057')
@@ -57,14 +57,14 @@ class FakeDataCRUDServiceTest(unittest.TestCase):
 
     def test_delete(self):
         dao = get_dao('test')
-        inserted_id = dao.create('books', test_book)['_id']
+        inserted_id = dao.create('books', test_book)
         ack = dao.delete('books', inserted_id)
         self.assertEqual(1, ack['ok'])
         self.assertEqual(1, ack['n'])
 
     def test_update(self):
         dao = get_dao('test')
-        inserted_id = dao.create('books', test_book)['_id']
+        inserted_id = dao.create('books', test_book)
         item = dao.get_by_id('books', inserted_id)
         self.assertIsNotNone(item)
         self.assertEqual(item['ISBN'], '0436203057')
