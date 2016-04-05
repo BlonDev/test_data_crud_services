@@ -32,8 +32,7 @@ class DAO:
     def create(self, collection_name, item):
         db = self.client[self.db]
         collection = db[collection_name]
-        new_item_id = collection.insert_one(item).inserted_id
-        return {'_id': new_item_id}
+        return collection.insert_one(item).inserted_id
 
     def delete(self, collection_name, item_id):
         db = self.client[self.db]
