@@ -4,7 +4,7 @@ from flask import Response
 from bson import json_util
 from flask import Blueprint
 from flask.ext.cors import cross_origin
-from fake_data_crud_service.core.dao import get_dao
+from test_data_crud_services.core.dao import get_dao
 
 
 books = Blueprint('books', __name__)
