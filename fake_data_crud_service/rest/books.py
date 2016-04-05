@@ -37,3 +37,12 @@ def update(environment, item_id):
     ack = dao.update('books', item_id, item)
     out = json.dumps(ack, sort_keys=True, indent=4, default=json_util.default)
     return Response(out, content_type='application/json; charset=utf-8')
+
+
+@books.route('/<environment>/', methods=['POST'])
+def create(environment):
+    item = json.loads(request.data)
+    dao = get_dao(environment)
+    ack = dao.create('books', item)
+    out = json.dumps(ack, sort_keys=True, indent=4, default=json_util.default)
+    return Response(out, content_type='application/json; charset=utf-8')
