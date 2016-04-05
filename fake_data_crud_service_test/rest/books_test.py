@@ -27,7 +27,7 @@ class BooksTest(unittest.TestCase):
         self.assertEquals(len(data), 1)
 
     def test_get_by_id(self):
-        inserted_id = self.dao.create('books', test_book)
+        inserted_id = self.dao.create('books', test_book)['_id']
         response = self.tester.get('/books/test/' + str(inserted_id) + '/',
                                    content_type='application/json')
         self.assertEquals(response.status_code, 200)
@@ -40,7 +40,7 @@ class BooksTest(unittest.TestCase):
         self.assertEquals(data['title'], 'Mr. Nice')
 
     def test_delete(self):
-        inserted_id = self.dao.create('books', test_book)
+        inserted_id = self.dao.create('books', test_book)['_id']
         response = self.tester.delete('/books/test/' + str(inserted_id) + '/',
                                       content_type='application/json')
         self.assertEquals(response.status_code, 200)
@@ -49,7 +49,7 @@ class BooksTest(unittest.TestCase):
         self.assertEqual(1, ack['n'])
 
     def test_update(self):
-        inserted_id = self.dao.create('books', test_book)
+        inserted_id = self.dao.create('books', test_book)['_id']
         response = self.tester.put('/books/test/' + str(inserted_id) + '/',
                                    data=json.dumps(update_book),
                                    content_type='application/json')
@@ -64,4 +64,5 @@ class BooksTest(unittest.TestCase):
                                     content_type='application/json')
         self.assertEquals(response.status_code, 200)
         ack = json.loads(response.data)
+        self.assertIsNotNone(ack['_id'])
         self.assertEqual(1, len(self.dao.get('books')))
