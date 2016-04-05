@@ -17,18 +17,17 @@ class BooksTest(unittest.TestCase):
         self.tester = self.app.test_client(self)
         dao = DAO(t['username'], t['password'], t['host'], t['port'], t['db_name'])
         dao.drop_collection('books')
+        self.dao = get_dao('test')
 
     def test_get(self):
-        dao = get_dao('test')
-        dao.create('books', test_book)
+        self.dao.create('books', test_book)
         response = self.tester.get('/books/test/', content_type='application/json')
         self.assertEquals(response.status_code, 200)
         data = json.loads(response.data)
         self.assertEquals(len(data), 1)
 
     def test_get_by_id(self):
-        dao = get_dao('test')
-        inserted_id = dao.create('books', test_book)
+        inserted_id = self.dao.create('books', test_book)
         response = self.tester.get('/books/test/' + str(inserted_id) + '/',
                                    content_type='application/json')
         self.assertEquals(response.status_code, 200)
@@ -41,8 +40,7 @@ class BooksTest(unittest.TestCase):
         self.assertEquals(data['title'], 'Mr. Nice')
 
     def test_delete(self):
-        dao = get_dao('test')
-        inserted_id = dao.create('books', test_book)
+        inserted_id = self.dao.create('books', test_book)
         response = self.tester.delete('/books/test/' + str(inserted_id) + '/',
                                       content_type='application/json')
         self.assertEquals(response.status_code, 200)
@@ -51,8 +49,7 @@ class BooksTest(unittest.TestCase):
         self.assertEqual(1, ack['n'])
 
     def test_update(self):
-        dao = get_dao('test')
-        inserted_id = dao.create('books', test_book)
+        inserted_id = self.dao.create('books', test_book)
         response = self.tester.put('/books/test/' + str(inserted_id) + '/',
                                    data=json.dumps(update_book),
                                    content_type='application/json')
@@ -60,3 +57,11 @@ class BooksTest(unittest.TestCase):
         ack = json.loads(response.data)
         self.assertEqual(1, ack['ok'])
         self.assertEqual(1, ack['n'])
+
+    def test_create(self):
+        response = self.tester.post('/books/test/',
+                                    data=json.dumps(test_book),
+                                    content_type='application/json')
+        self.assertEquals(response.status_code, 200)
+        ack = json.loads(response.data)
+        self.assertEqual(1, len(self.dao.get('books')))
