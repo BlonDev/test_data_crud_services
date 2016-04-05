@@ -1,8 +1,8 @@
 schema = {
     "$schema": "http://json-schema.org/draft-04/hyper-schema#",
     "type": "object",
-    "title": "Fake Data CRUD Service",
-    "description": "Simple Flask web app to provide CRUD functionalities for fake data.",
+    "title": "Test Data CRUD Services",
+    "description": "Simple Flask web app to provide CRUD functionalities for test data.",
     "definitions": {
         "book": {
             "type": "object",
@@ -86,10 +86,5 @@ schema = {
                 }
             }
         }
-    ],
-    "properties": {
-        "book": {
-            "$ref": "#/definitions/book"
-        }
-    }
+    ]
 }
