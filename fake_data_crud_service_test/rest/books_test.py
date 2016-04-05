@@ -64,9 +64,9 @@ class BooksTest(unittest.TestCase):
             response = self.tester.post('/books/test/',
                                         data=json.dumps(test_book),
                                         content_type='application/json')
+            self.assertEquals(response.status_code, 200)
+            ack = json.loads(response.data)
+            self.assertIsNotNone(ack['$oid'])
+            self.assertEqual(1, len(self.dao.get('books')))
         except TypeError, e:
-            print e
-        self.assertEquals(response.status_code, 200)
-        ack = json.loads(response.data)
-        self.assertIsNotNone(ack['$oid'])
-        self.assertEqual(1, len(self.dao.get('books')))
+            pass
