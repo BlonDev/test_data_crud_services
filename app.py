@@ -1,11 +1,19 @@
 import json
 from flask import Flask
 from bson import json_util
+from flask.ext.cors import CORS
 from fake_data_crud_service.rest.books import books
 from fake_data_crud_service.resources.schema import schema
 
 
+# Initiate Flask framework
 app = Flask(__name__)
+
+# Initiate and configure CORS filters
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+# Register blueprints
 app.register_blueprint(books, url_prefix='/books')
 
 

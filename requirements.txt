@@ -2,3 +2,4 @@ bson
 flask
 pymongo
 gunicorn
+flask.ext.cors
