@@ -1,13 +1,13 @@
 import unittest
-from fake_data_crud_service.core.dao import DAO
-from fake_data_crud_service.core.dao import get_dao
-from fake_data_crud_service.config.settings import test as t
-from fake_data_crud_service.config.settings import production as p
-from fake_data_crud_service.resources.test_book import book_1 as test_book
-from fake_data_crud_service.resources.test_book import book_2 as update_book
+from test_data_crud_services.core.dao import DAO
+from test_data_crud_services.core.dao import get_dao
+from test_data_crud_services.config.settings import test as t
+from test_data_crud_services.config.settings import production as p
+from test_data_crud_services.resources.test_book import book_1 as test_book
+from test_data_crud_services.resources.test_book import book_2 as update_book
 
 
-class FakeDataCRUDServiceTest(unittest.TestCase):
+class TestDataCRUDServicesTest(unittest.TestCase):
 
     def setUp(self):
         dao = DAO(t['username'], t['password'], t['host'], t['port'], t['db_name'])

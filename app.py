@@ -2,8 +2,8 @@ import json
 from flask import Flask
 from bson import json_util
 from flask.ext.cors import CORS
-from fake_data_crud_service.rest.books import books
-from fake_data_crud_service.resources.schema import schema
+from test_data_crud_services.rest.books import books
+from test_data_crud_services.resources.schema import schema
 
 
 # Initiate Flask framework

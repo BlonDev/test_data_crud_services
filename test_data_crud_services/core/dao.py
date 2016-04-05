@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from fake_data_crud_service.config.settings import production as p
-from fake_data_crud_service.config.settings import test as t
+from test_data_crud_services.config.settings import production as p
+from test_data_crud_services.config.settings import test as t
 
 
 class DAO:

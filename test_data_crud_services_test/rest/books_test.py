@@ -1,12 +1,12 @@
 import json
 import unittest
 from flask import Flask
-from fake_data_crud_service.core.dao import DAO
-from fake_data_crud_service.core.dao import get_dao
-from fake_data_crud_service.rest.books import books
-from fake_data_crud_service.config.settings import test as t
-from fake_data_crud_service.resources.test_book import book_1 as test_book
-from fake_data_crud_service.resources.test_book import book_2 as update_book
+from test_data_crud_services.core.dao import DAO
+from test_data_crud_services.core.dao import get_dao
+from test_data_crud_services.rest.books import books
+from test_data_crud_services.config.settings import test as t
+from test_data_crud_services.resources.test_book import book_1 as test_book
+from test_data_crud_services.resources.test_book import book_2 as update_book
 
 
 class BooksTest(unittest.TestCase):
