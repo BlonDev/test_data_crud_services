@@ -59,13 +59,8 @@ class BooksTest(unittest.TestCase):
         self.assertEqual(1, ack['n'])
 
     def test_create(self):
-        data = None
-        try:
-            data = json.dumps(test_book)
-        except Exception, e:
-            print e
         response = self.tester.post('/books/test/',
-                                    data=data,
+                                    data=json.dumps(test_book),
                                     content_type='application/json')
         self.assertEquals(response.status_code, 200)
         ack = json.loads(response.data)
